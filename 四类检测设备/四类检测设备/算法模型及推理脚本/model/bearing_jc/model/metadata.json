@@ -1,0 +1,6 @@
+{
+  "input_dim": 1024,
+  "threshold": 0.015386190861463547,
+  "anomaly_score_mode": "mse_raw",
+  "framework_note": "701zhouc sae.py PyTorch SAE; 异常判定为 per-sample MSE > threshold"
+}

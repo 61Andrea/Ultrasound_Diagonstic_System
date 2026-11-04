@@ -1,0 +1,31 @@
+========== 离线检测评估指标 ==========
+样本总数: 400
+真实正常数量: 200
+真实异常数量: 200
+预测正常数量: 233
+预测异常数量: 167
+TN 正常判正常: 200
+FP 正常判异常: 0
+FN 异常判正常: 33
+TP 异常判异常: 167
+Accuracy 准确率: 91.75%
+Precision 精确率: 100.00%
+Recall 召回率: 83.50%
+F1: 91.01%
+误报率 False Alarm Rate: 0.00%
+漏报率 Miss Rate: 16.50%
+CPU占用: 27.24%
+
+========== 配置 ==========
+abnormal_count: 200
+data_path: /home/root/model/jt/data/jt.txt
+detection_results_csv: /home/root/model/jt/model/detection_results.csv
+detection_results_txt: /home/root/model/jt/model/detection_results.txt
+expected_dim: 256
+metadata_path: /home/root/model/jt/model/metadata.json
+model_dir: /home/root/model/jt/model
+normal_count: 200
+onnx_path: /home/root/model/jt/model/sae_model.onnx
+output_dir: /home/root/model/jt/model
+scaler_path: /home/root/model/jt/model/scaler.json
+threshold: 2.8

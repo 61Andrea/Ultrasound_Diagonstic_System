@@ -1,0 +1,17 @@
+{
+  "model_type": "sae_detector",
+  "input_dim": 256,
+  "h1": 128,
+  "h2": 64,
+  "latent": 16,
+  "threshold": 0.6949975816726685,
+  "threshold_meta": {
+    "median": 0.3315260410308838,
+    "mad": 0.04085969924926758,
+    "sigma_robust": 0.060578590106964106,
+    "k": 6.0
+  },
+  "score_type": "raw_mse",
+  "rho": 0.05,
+  "beta": 0.001
+}

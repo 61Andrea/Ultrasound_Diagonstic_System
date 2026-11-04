@@ -1,0 +1,12 @@
+{
+  "input_dim": 24,
+  "num_classes": 4,
+  "class_names": [
+    "正常",
+    "轻度",
+    "中度",
+    "重度"
+  ],
+  "test_accuracy": 0.896584440227704,
+  "features": "12_beaker+12_diff"
+}

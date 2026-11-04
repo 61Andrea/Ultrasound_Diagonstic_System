@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>C_window</class>
+ <widget class="QWidget" name="C_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>902</width>
+    <height>650</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>齿轮箱腐蚀异常检测</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+/* ================= 全局基础样式 ================= */
+QWidget#C_window { background-color: #0b1426; }
+
+QLabel#label_title {
+    color: #00e5ff;
+    background-color: transparent;
+    letter-spacing: 2px;
+}
+
+/* ================= 选项卡样式 ================= */
+QTabWidget::pane {
+    border: 1px solid #1e3a5f;
+    background-color: #111d35;
+    border-radius: 4px;
+}
+
+QTabBar::tab {
+    background: #142542;
+    color: #7b90ad;
+    padding: 10px 25px;
+    margin-right: 4px;
+    border: 1px solid #1e3a5f;
+    border-bottom: none;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    min-width: 120px;
+    font-size: 11pt; /* 调整后的字体大小 */
+    font-weight: bold;
+}
+
+QTabBar::tab:selected {
+    background: #111d35;
+    color: #00e5ff;
+    border-top: 3px solid #00e5ff;
+}
+
+QTabBar::tab:hover:!selected {
+    background: #1a3359;
+    color: #ffffff;
+}
+
+QWidget#tab_realtime, QWidget#tab_records, QWidget#tab_diagnosis {
+    background-color: #111d35;
+}
+
+/* ================= 左侧功能按钮样式 ================= */
+QPushButton {
+    background-color: #142542;
+    color: #00e5ff;
+    border: 1px solid #1e3a5f;
+    border-radius: 4px;
+    padding: 12px;
+    font-family: &quot;Microsoft YaHei&quot;;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+QPushButton:hover { background-color: #1a3359; border: 1px solid #00e5ff; }
+QPushButton:pressed { background-color: #00e5ff; color: #0b1426; }
+
+/* ================= 右侧显示大屏样式 (仅保留前两页的) ================= */
+QFrame#frame_display, QFrame#frame_display_records {
+    background-color: #050a14;
+    border: 2px solid #1e3a5f;
+    border-radius: 6px;
+}
+
+/* ================= 第三页：智能诊断专项样式 ================= */
+/* 大圆盘底座 */
+QFrame#frame_dial {
+    background-color: #050a14;
+    border: 4px solid #1e3a5f;
+    border-radius: 80px; /* 宽度160的一半，形成完美的圆 */
+}
+
+/* 状态小显示屏 (窄矩形) */
+QLabel#label_diag_status {
+    background-color: #050a14;
+    border: 2px solid #1e3a5f;
+    border-radius: 4px;
+    color: #3b5070; /* 暗暗的初始颜色 */
+}
+   </string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>15</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="label_title">
+     <property name="font">
+      <font>
+       <family>华文仿宋</family>
+       <pointsize>20</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 20pt &quot;华文仿宋&quot;;</string>
+     </property>
+     <property name="text">
+      <string>齿轮箱腐蚀异常检测系统</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTabWidget" name="C_window3">
+     <property name="font">
+      <font>
+       <family>华文仿宋</family>
+       <pointsize>12</pointsize>
+       <weight>75</weight>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: bold 12pt &quot;华文仿宋&quot;;</string>
+     </property>
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab_realtime">
+      <attribute name="title">
+       <string>实时采集</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_realtime">
+       <property name="spacing">
+        <number>15</number>
+       </property>
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <property name="topMargin">
+        <number>15</number>
+       </property>
+       <property name="rightMargin">
+        <number>15</number>
+       </property>
+       <property name="bottomMargin">
+        <number>15</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame_buttons">
+         <property name="minimumSize">
+          <size>
+           <width>140</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>140</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_buttons">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="topMargin">
+           <number>20</number>
+          </property>
+          <property name="bottomMargin">
+           <number>20</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="CJ_C1">
+            <property name="styleSheet">
+             <string notr="true">/* ========================================= */
+/* 当按钮被选中时（高亮状态） */
+/* ========================================= */
+QPushButton:checked {
+    background-color: #00e5ff; /* 亮青色底色 */
+    color: #050a14;            /* 深色文字，对比更明显 */
+    border: 2px solid #00e5ff; /* 边框也变成亮青色 */
+    font-weight: bold;         /* 字体加粗 */
+}</string>
+            </property>
+            <property name="text">
+             <string>模式设置</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CJ_C2">
+            <property name="styleSheet">
+             <string notr="true">QPushButton:checked {
+    background-color: #00e5ff; 
+    color: #050a14;            
+    border: 2px solid #00e5ff; 
+    font-weight: bold;         
+}</string>
+            </property>
+            <property name="text">
+             <string>启动采集</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CJ_C5">
+            <property name="styleSheet">
+             <string notr="true">QPushButton:checked {
+    background-color: #00e5ff; 
+    color: #050a14;            
+    border: 2px solid #00e5ff; 
+    font-weight: bold;         
+}</string>
+            </property>
+            <property name="text">
+             <string>启动检测</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CJ_C3">
+            <property name="styleSheet">
+             <string notr="true">QPushButton:checked {
+    background-color: #00e5ff; 
+    color: #050a14;            
+    border: 2px solid #00e5ff; 
+    font-weight: bold;         
+}</string>
+            </property>
+            <property name="text">
+             <string>历史记录</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="CJ_C4">
+            <property name="styleSheet">
+             <string notr="true">QPushButton:checked {
+    background-color: #00e5ff; 
+    color: #050a14;            
+    border: 2px solid #00e5ff; 
+    font-weight: bold;         
+}</string>
+            </property>
+            <property name="text">
+             <string>文件查看</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_display">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_display">
+          <item>
+           <widget class="QCustomPlot" name="SJ_screen" native="true">
+            <widget class="QWidget" name="layoutWidget">
+             <property name="geometry">
+              <rect>
+               <x>-10</x>
+               <y>140</y>
+               <width>661</width>
+               <height>162</height>
+              </rect>
+             </property>
+             <layout class="QHBoxLayout" name="horizontalLayout_diag_top_3">
+              <property name="spacing">
+               <number>40</number>
+              </property>
+              <item>
+               <widget class="QFrame" name="frame_dial_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>160</width>
+                  <height>160</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>160</width>
+                  <height>160</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_diag_status_3">
+                <property name="minimumSize">
+                 <size>
+                  <width>280</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>60</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>华文仿宋</family>
+                  <pointsize>12</pointsize>
+                  <weight>75</weight>
+                  <italic>false</italic>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>诊断进度展示</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_records">
+      <attribute name="title">
+       <string>设备记录</string>
+      </attribute>
+      <layout class="QHBoxLayout" name="horizontalLayout_records">
+       <property name="spacing">
+        <number>15</number>
+       </property>
+       <property name="leftMargin">
+        <number>15</number>
+       </property>
+       <property name="topMargin">
+        <number>15</number>
+       </property>
+       <property name="rightMargin">
+        <number>15</number>
+       </property>
+       <property name="bottomMargin">
+        <number>15</number>
+       </property>
+       <item>
+        <widget class="QFrame" name="frame_buttons_records">
+         <property name="minimumSize">
+          <size>
+           <width>140</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>140</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_buttons_records">
+          <property name="spacing">
+           <number>20</number>
+          </property>
+          <property name="topMargin">
+           <number>20</number>
+          </property>
+          <property name="bottomMargin">
+           <number>20</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="JL_C1">
+            <property name="text">
+             <string>模式设置</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="JL_C2">
+            <property name="text">
+             <string>启动存储</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="JL_C3">
+            <property name="text">
+             <string>文件查看</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="JL_C4">
+            <property name="text">
+             <string>文件删除</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="JL_C5">
+            <property name="text">
+             <string>文件上传</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QFrame" name="frame_display_records">
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_display_records">
+          <item>
+           <widget class="QWidget" name="JL_screen" native="true"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

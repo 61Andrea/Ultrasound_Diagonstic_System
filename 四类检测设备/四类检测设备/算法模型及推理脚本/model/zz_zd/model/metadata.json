@@ -1,0 +1,36 @@
+{
+  "model": "MultiScaleCNN",
+  "task": "fault_diagnosis_4class",
+  "axis": "Z",
+  "num_classes": 4,
+  "input_layout": "NCHW",
+  "channels": 1,
+  "seq_len": 512,
+  "hop": 128,
+  "overlap": 0.75,
+  "train_ratio_time": 0.7,
+  "preprocess": {
+    "name": "standard_scaler_embedded",
+    "description": "StandardScaler 已嵌入 ONNX 模型图 (Sub+Div 前置节点)。推理时直接喂原始加速度窗口 (N,1,512)，无需 scaler.pkl 或手动预处理。"
+  },
+  "labels": {
+    "id_to_cn": {
+      "0": "健康",
+      "1": "轻度",
+      "2": "中度",
+      "3": "重度"
+    },
+    "id_to_en": {
+      "0": "Normal",
+      "1": "Mild",
+      "2": "Moderate",
+      "3": "Severe"
+    }
+  },
+  "export": {
+    "onnx": "mscnn_model.onnx",
+    "opset": 14
+  },
+  "train_notes": "干净(8%)+硬件信号链模拟(92%)混合训练。信号链: μ-law编码→AC耦合(1阶HPF fc∈[0.3,3]Hz, Vref=5V)→ADC量化(12-bit, 8.3mV噪声)→3点移动平均(algo_67)→逆μ-law。无软件AA滤波(匹配实际algo_67数据路径)。StandardScaler已嵌入ONNX。",
+  "test_accuracy_window_level": 0.7685185185185185
+}

@@ -1,0 +1,136 @@
+#ifndef A_WINDOW_H
+#define A_WINDOW_H
+
+#include <QDialog>
+#include <QByteArray>
+#include <QTimer>
+#include <QLabel>
+#include <QVector> // 【新增】确保包含 QVector
+#include <QPaintEvent> // 🔴绘图事件头文件
+#include <QPainter>    // 🔴画家类头文件
+#include <QFile>
+#include <QDir>
+#include <QDateTime>
+#include <QTableWidget>
+#include <QList>
+#include <QTextStream>
+#include <QStringList>
+#include <QCloseEvent>  // 🔴 记得在顶部引入这个头文件
+
+namespace Ui {
+class A_window;
+}
+
+// --- 2. 在 class A_window 定义的上面，定义单条记录结构体 ---
+struct DiagRecord {
+    QString time;        // 检测时间
+    QString checkResult; // 检测结果 (正常/异常)
+    QString diagDetail;  // 诊断详情 (-- / 轻度磨损 / 中度磨损 / 重度磨损)
+};
+
+class A_window : public QDialog // 【关键修复】：继承 QDialog
+{
+    Q_OBJECT
+
+protected:
+// 🔴 2. 换成这个：事件过滤器
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
+    void closeEvent(QCloseEvent *event) override;
+
+
+// 【新增】公开的槽函数，用于接收后台 TCP 传来的真实数据
+public slots:
+    //void updateAcqWaveform(const QVector<double> &yData);
+    void onWaveDataReceived(quint8 channelID, const QByteArray& payload);
+    void updateDialAnimation(); // 专门负责让表针转圈的函数
+    void onDiagDataReceived(const QByteArray& data); // 专门接收 4字节 诊断结果
+
+public:
+    explicit A_window(QWidget *parent = nullptr);
+    ~A_window();
+
+signals:
+    void sendCommand(unsigned short cmd);
+    void sendFrame(const QByteArray &frame);
+    void sendFrameSignal(const QByteArray &frame); // 【新增这行】发AA55配置包用的
+
+private slots:
+
+
+    //数据采集
+    void on_CJ_A1_clicked(); // 模式设置
+    void on_CJ_A2_clicked(); // 开始采集
+    void on_CJ_A3_clicked(); // 历史记录
+    void on_CJ_A4_clicked(); // 文件查看
+    void on_CJ_A5_clicked(); // 启动检测
+
+    //设备记录
+    void on_JL_A1_clicked(); // 模式设置
+    void on_JL_A2_clicked(); // 启动存储
+    void on_JL_A3_clicked(); // 文件查看
+    void on_JL_A4_clicked(); // 文件删除
+    void on_JL_A5_clicked(); // 文件上传
+
+
+
+private:
+    Ui::A_window *ui;
+
+    QTimer *m_dialAnimationTimer; // 旋转动画定时器  0628
+
+
+    // ==== 实时采集界面专属变量 ====  0628
+    QList<DiagRecord> m_diagRecords;    // 存储最近10条记录的链表
+    QString m_historyFilePath;          // 保存本地 csv 文件的路径
+    void loadDiagHistory();                                      // 开机读取历史
+    void updateHistoryFile();                                    // 覆盖保存历史
+    void saveDiagResult(const QString &check, const QString &detail); // 存入新结果
+    // ==== 实时采集界面专属变量 ====  0628
+
+    // ==== 实时采集界面专属变量 ====
+    // ============ 1. 抽帧显示与存盘控制 ============
+    qint64 lastPlotTime;       // 记录上一次画图的时间戳
+    bool isAcquiring;          // 是否正在采集
+    QFile *currentSaveFile;    // 当前正在写入的文件指针
+    QString saveDirectory;     // 保存文件夹路径
+
+    // ============ 2. 历史记录结构体 ============
+    struct AcqHistory {
+        QDateTime startTime;
+        QString duration;
+    };
+    QList<AcqHistory> historyRecords; // 存储最近的记录
+    QDateTime currentAcqStartTime;    // 当前这次采集的开始时间
+
+    // ============ 3. 动态生成的表格UI ============
+    QTableWidget *historyTable; // 历史记录表格
+    QTableWidget *fileTable;    // 文件查看表格
+
+    // ============ 辅助函数 ============
+    void switchRightPanel(int mode); // 切换右侧面板显示 (0:波形, 1:历史, 2:文件)
+
+
+    // 为每个通道独立维护文件指针和分卷号
+    QMap<quint8, QFile*> m_saveFiles;
+    QMap<quint8, int> m_filePartIndexes;
+
+    // 为每个通道独立维护上一次的画图时间
+    QMap<quint8, qint64> m_lastPlotTimes;
+
+
+
+// ==== 设备记录界面专属变量 ====
+    bool isRemoteStoring;               // 记录下位机是否正在存储
+    QTableWidget *remoteFileTable;      // 用于显示下位机文件的表格
+
+
+
+
+// 🔴 新增：记录当前指针角度的成员变量
+    int currentAngle;
+    bool m_isDiagnosing;
+
+};
+
+#endif // A_WINDOW_H

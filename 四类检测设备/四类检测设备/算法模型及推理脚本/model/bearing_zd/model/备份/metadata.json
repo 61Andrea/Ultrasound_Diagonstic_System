@@ -1,0 +1,18 @@
+{
+  "input_length": 1024,
+  "num_classes": 4,
+  "class_names": [
+    "normal",
+    "slight",
+    "moderate",
+    "severe"
+  ],
+  "class_names_cn": [
+    "正常",
+    "轻微",
+    "中度",
+    "重度"
+  ],
+  "onnx_input_layout": "N1L",
+  "note": "输入 ONNX 的张量形状为 (batch, 1, input_length)，与训练时 Conv1d 一致"
+}

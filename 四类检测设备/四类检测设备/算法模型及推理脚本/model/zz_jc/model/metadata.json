@@ -1,0 +1,24 @@
+{
+  "input_dim": 512,
+  "win_size": 512,
+  "hop": 128,
+  "overlap": 0.75,
+  "axis": "Z",
+  "threshold": 0.08394460061267017,
+  "threshold_meta": {
+    "method": "mad",
+    "median": 0.01007615216076374,
+    "mad": 0.00830393098294735,
+    "mad_k": 6.0,
+    "sigma_robust": 0.01231140807531774
+  },
+  "thresh_method": "mad",
+  "score_type": "raw_mse",
+  "enc_h1": 256,
+  "enc_h2": 64,
+  "latent_dim": 16,
+  "train_scores_mean": 0.49473434686660767,
+  "train_scores_std": 1.8486899137496948,
+  "rho": 0.05,
+  "beta": 0.001
+}

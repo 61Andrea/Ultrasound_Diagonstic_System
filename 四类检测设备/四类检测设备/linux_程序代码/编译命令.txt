@@ -1,0 +1,9 @@
+aarch64-linux-gnu-gcc MMT20250413.c -L ../api/ -lbase  -lpthread -lm -o myip
+aarch64-linux-gnu-gcc MMT20250413.c -L ../api/ -lbase  -lpthread -lm -o myip
+aarch64-linux-gnu-gcc MMT20250413.c -o myip -I ../api/ -L ../api/ -lbase -luti_sdk_arm64_v5.0.0 -lpthread -lm -Wl,-rpath=/mnt/api
+
+
+
+aarch64-linux-gnu-gcc -fPIC -shared ad7768.c ad7915.c api_file.c common.c cpu.c fun.c led.c parse_file.c net.c clock.c -o libbase.so
+aarch64-linux-gnu-gcc -fPIC -shared ad7768.c ad7915.c api_file.c common.c cpu.c fun.c led.c parse_file.c net.c clock.c -o libbase.so -I. -L. -luti_sdk_arm64_v5.0.0 -lpthread
+aarch64-linux-gnu-gcc -fPIC -shared ad7768.c ad7915.c api_file.c common.c cpu.c fun.c led.c parse_file.c net.c clock.c -o libbase.so -I. -L. -luti_sdk_arm64_v5.0.0 -lpthread -Wl,-rpath=/mnt/api

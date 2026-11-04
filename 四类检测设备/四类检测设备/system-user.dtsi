@@ -1,0 +1,35 @@
+/include/ "system-conf.dtsi"
+/ {
+
+	xlnk{
+		compatible = "xlnk, xlnk-1.0";
+	};
+};
+	/* SD */
+	&sdhci1 {
+		disable-wp;
+		no-1-8-v;
+	};
+
+	/* USB  */
+	&dwc3_0 {
+	    status = "okay";
+	    dr_mode = "host";
+	};
+
+
+	&axi_ethernet_0 {
+		phy-handle = <&phy2>;
+	};
+	&axi_ethernet_0_mdio {
+		phy2: phy@2 {
+			device_type = "ethernet-phy";
+			reg = <1>;
+		};
+	};
+
+&watchdog0 {
+	status = "okay";
+	reset-on-timeout;
+	timeout-sec = <10>;
+};

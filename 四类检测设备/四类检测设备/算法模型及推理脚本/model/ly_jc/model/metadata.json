@@ -1,0 +1,6 @@
+{
+  "input_dim": 24,
+  "threshold": 0.0017000720195937888,
+  "sample_len": 12,
+  "features": "12_beaker+12_diff"
+}

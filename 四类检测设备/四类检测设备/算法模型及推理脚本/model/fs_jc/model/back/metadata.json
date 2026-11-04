@@ -1,0 +1,9 @@
+{
+  "input_dim": 256,
+  "pca_dim": 8,
+  "model_type": "pca_rbfsvm_pytorch",
+  "svm_nu": 0.08,
+  "svm_gamma": 0.05,
+  "n_support_vectors": 129,
+  "pca_variance": 0.4744207262992859
+}
